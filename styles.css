@@ -1,0 +1,938 @@
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary: #e91e63;
+    --primary-light: #f48fb1;
+    --primary-dark: #880e4f;
+    --secondary: #ff6090;
+    --accent: #ff80ab;
+    --gold: #ffd700;
+    --bg-dark: #1a0011;
+    --bg-section: #200013;
+    --text-light: #fff5f8;
+    --text-muted: #ffcdd2;
+    --glass-bg: rgba(255, 255, 255, 0.06);
+    --glass-border: rgba(255, 255, 255, 0.12);
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-light);
+    line-height: 1.6;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ============================================
+   PETALS CANVAS
+   ============================================ */
+#petals-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ============================================
+   SLIDES SYSTEM
+   ============================================ */
+.slides-container {
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    z-index: 2;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 3;
+}
+
+.slide.exit-left {
+    opacity: 0;
+    transform: translateX(-30%);
+    z-index: 2;
+}
+
+.slide.exit-right {
+    opacity: 0;
+    transform: translateX(30%);
+    z-index: 2;
+}
+
+.slide.enter-left {
+    transform: translateX(-100%);
+}
+
+.slide-content {
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* ============================================
+   NAVIGATION DOTS
+   ============================================ */
+.nav-dots {
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+}
+
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--primary-light);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.nav-dot.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: scale(1.4);
+    box-shadow: 0 0 12px rgba(233, 30, 99, 0.6);
+}
+
+/* Slide counter */
+.slide-counter {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.3);
+    z-index: 100;
+    font-weight: 300;
+    letter-spacing: 2px;
+}
+
+/* ============================================
+   SLIDE 0: HERO
+   ============================================ */
+.slide-hero {
+    background:
+        radial-gradient(ellipse at 30% 20%, rgba(233, 30, 99, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(255, 96, 144, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(136, 14, 79, 0.1) 0%, transparent 70%),
+        var(--bg-dark);
+}
+
+.sparkle-container {
+    margin-bottom: 0.8rem;
+}
+
+.sparkle {
+    font-size: 1.2rem;
+    margin: 0 0.4rem;
+    display: inline-block;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.sparkle:nth-child(2) { animation-delay: 0.3s; }
+.sparkle:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.3) rotate(15deg); }
+}
+
+.title-main {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.8rem, 10vw, 5rem);
+    background: linear-gradient(135deg, var(--primary-light), #fff, var(--accent), var(--primary-light));
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 4s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(233, 30, 99, 0.3));
+    margin-bottom: 0.3rem;
+    line-height: 1.2;
+}
+
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.title-sub {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 0.5s forwards;
+}
+
+.heart-divider {
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    margin: 1rem 0;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 0.8s forwards;
+}
+
+.heart-divider span {
+    color: var(--primary);
+    font-size: 1rem;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.heart-divider span:nth-child(2) {
+    animation-delay: 0.2s;
+    font-size: 1.3rem;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.3); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.2); }
+}
+
+.hero-message {
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    color: var(--text-muted);
+    max-width: 90%;
+    margin: 0 auto 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 1s forwards;
+}
+
+.valentines-date {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2rem;
+    color: var(--gold);
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 1.2s forwards;
+    margin-bottom: 1.5rem;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Swipe hint */
+.swipe-hint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 1.8s forwards;
+    margin-top: 1rem;
+}
+
+.swipe-arrow {
+    font-size: 1.5rem;
+    color: var(--primary-light);
+    animation: swipeRight 1.5s ease-in-out infinite;
+    display: inline-block;
+}
+
+.swipe-text {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@keyframes swipeRight {
+    0%, 100% { transform: translateX(0); opacity: 0.5; }
+    50% { transform: translateX(8px); opacity: 1; }
+}
+
+/* ============================================
+   SLIDE 1: TIMELINE
+   ============================================ */
+.slide-timeline {
+    background:
+        radial-gradient(ellipse at 50% 30%, rgba(233, 30, 99, 0.12) 0%, transparent 60%),
+        var(--bg-section);
+}
+
+.section-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2rem, 7vw, 3rem);
+    background: linear-gradient(135deg, var(--primary-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 2rem;
+}
+
+.timeline {
+    position: relative;
+    padding: 0 0 0 2rem;
+    text-align: left;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--primary), var(--gold), var(--primary));
+    border-radius: 2px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.6s ease;
+}
+
+.timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -2rem;
+    top: 0.2rem;
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.timeline-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.timeline-date {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+    color: var(--gold);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.timeline-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+/* ============================================
+   SLIDES 2-3: DATE CARDS
+   ============================================ */
+.slide-enero {
+    background:
+        radial-gradient(ellipse at 40% 30%, rgba(233, 30, 99, 0.15) 0%, transparent 50%),
+        var(--bg-dark);
+}
+
+.slide-octubre {
+    background:
+        radial-gradient(ellipse at 60% 70%, rgba(255, 96, 144, 0.15) 0%, transparent 50%),
+        var(--bg-section);
+}
+
+.date-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, rgba(233, 30, 99, 0.2), rgba(255, 96, 144, 0.1));
+    border: 1px solid rgba(233, 30, 99, 0.3);
+    border-radius: 50px;
+    padding: 0.4rem 1rem;
+    margin-bottom: 0.8rem;
+}
+
+.badge-icon { font-size: 1rem; }
+
+.badge-text {
+    font-size: 0.7rem;
+    color: var(--primary-light);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.date-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    color: var(--text-light);
+    margin-bottom: 0.2rem;
+    font-weight: 700;
+}
+
+.date-time-label {
+    font-size: 1rem;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    font-weight: 300;
+}
+
+.date-description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    font-weight: 300;
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Photo frame */
+.photo-frame {
+    position: relative;
+    margin: 1rem auto;
+    max-width: 320px;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+        0 8px 32px rgba(233, 30, 99, 0.25),
+        0 0 60px rgba(233, 30, 99, 0.1);
+    border: 2px solid rgba(233, 30, 99, 0.3);
+}
+
+.date-photo {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+.photo-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.8rem;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+/* Countdown */
+.countdown-label {
+    font-size: 0.75rem;
+    color: var(--primary-light);
+    text-align: center;
+    margin-top: 1.2rem;
+    margin-bottom: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.countdown {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(145deg, rgba(233, 30, 99, 0.15), rgba(233, 30, 99, 0.05));
+    border: 1px solid rgba(233, 30, 99, 0.2);
+    border-radius: 12px;
+    padding: 0.6rem 0.5rem;
+    min-width: 62px;
+    backdrop-filter: blur(10px);
+}
+
+.countdown-number {
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    font-weight: 700;
+    color: var(--text-light);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1;
+    background: linear-gradient(135deg, #fff, var(--primary-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.countdown-text {
+    font-size: 0.6rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 0.2rem;
+    font-weight: 600;
+}
+
+/* ============================================
+   SLIDE 4: LOVE LETTER
+   ============================================ */
+.slide-letter {
+    background:
+        radial-gradient(ellipse at 50% 50%, rgba(233, 30, 99, 0.1) 0%, transparent 60%),
+        var(--bg-dark);
+}
+
+.letter-envelope {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2rem 1.5rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    position: relative;
+}
+
+.letter-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    animation: floatSlow 3s ease-in-out infinite;
+}
+
+@keyframes floatSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.letter-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+    background: linear-gradient(135deg, var(--primary-light), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.2rem;
+}
+
+.letter-body {
+    margin-bottom: 1.5rem;
+}
+
+.letter-line {
+    font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+    color: var(--text-muted);
+    line-height: 2;
+    font-weight: 300;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.letter-line.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.letter-signature {
+    text-align: right;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
+}
+
+.letter-signature.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.signature-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+}
+
+.signature-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    background: linear-gradient(135deg, var(--primary), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ============================================
+   SLIDE 5: SURPRISE
+   ============================================ */
+.slide-surprise {
+    background:
+        radial-gradient(ellipse at 50% 50%, rgba(233, 30, 99, 0.15) 0%, transparent 50%),
+        var(--bg-section);
+}
+
+.surprise-heart {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.surprise-heart:active {
+    transform: scale(0.9);
+}
+
+.surprise-heart.hidden {
+    display: none;
+}
+
+.big-heart {
+    font-size: 5rem;
+    display: inline-block;
+    animation: heartPulse 1.2s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(233, 30, 99, 0.5));
+}
+
+@keyframes heartPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+.tap-text {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+.surprise-message {
+    display: none;
+    opacity: 0;
+}
+
+.surprise-message.visible {
+    display: block;
+    animation: surpriseReveal 1s ease-out forwards;
+}
+
+@keyframes surpriseReveal {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.surprise-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.5rem, 9vw, 4rem);
+    background: linear-gradient(135deg, var(--primary-light), #fff, var(--gold));
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3s ease-in-out infinite;
+    margin-bottom: 1.2rem;
+}
+
+.surprise-text {
+    font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+    color: var(--text-muted);
+    line-height: 1.8;
+    font-weight: 300;
+    max-width: 90%;
+    margin: 0 auto 2rem;
+}
+
+.final-footer {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-hearts {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+.final-footer p {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 300;
+}
+
+.footer-year {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.1rem !important;
+    color: var(--primary-light) !important;
+    margin-top: 0.3rem;
+}
+
+/* ============================================
+   CONFETTI PARTICLES (JS generated)
+   ============================================ */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 200;
+    overflow: hidden;
+    contain: strict;
+}
+
+.confetti {
+    position: absolute;
+    top: -20px;
+    opacity: 0;
+    animation: confettiFall linear forwards;
+    will-change: transform, opacity;
+}
+
+@keyframes confettiFall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    85% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(100vh) rotate(720deg) scale(0.3);
+    }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 480px) {
+    .slide-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .nav-dots {
+        right: 8px;
+        gap: 8px;
+    }
+
+    .nav-dot {
+        width: 8px;
+        height: 8px;
+    }
+
+    .photo-frame {
+        max-width: 280px;
+    }
+
+    .date-photo {
+        height: 200px;
+    }
+
+    .countdown-item {
+        min-width: 56px;
+        padding: 0.5rem 0.4rem;
+    }
+
+    .countdown-number {
+        font-size: 1.2rem;
+    }
+
+    .timeline {
+        padding-left: 1.8rem;
+    }
+
+    .timeline-item {
+        margin-bottom: 1.4rem;
+    }
+
+    .timeline-card {
+        padding: 0.8rem 1rem;
+    }
+
+    .letter-envelope {
+        padding: 1.5rem 1.2rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .title-main {
+        font-size: 2.2rem;
+    }
+
+    .countdown-item {
+        min-width: 52px;
+    }
+
+    .photo-frame {
+        max-width: 250px;
+    }
+
+    .date-photo {
+        height: 180px;
+    }
+}
+
+@media (max-height: 650px) {
+    .slide-content {
+        padding: 1rem;
+    }
+
+    .date-photo {
+        height: 160px;
+    }
+
+    .photo-frame {
+        max-width: 220px;
+        margin: 0.5rem auto;
+    }
+
+    .date-badge {
+        margin-bottom: 0.4rem;
+    }
+
+    .date-description {
+        margin-bottom: 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .countdown-label {
+        margin-top: 0.6rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .countdown-item {
+        padding: 0.4rem;
+        min-width: 50px;
+    }
+
+    .timeline-item {
+        margin-bottom: 1rem;
+    }
+
+    .big-heart {
+        font-size: 3.5rem;
+    }
+}
+
+/* Landscape */
+@media (max-height: 450px) and (orientation: landscape) {
+    .slide-content {
+        padding: 0.5rem 1rem;
+        max-width: 90%;
+    }
+
+    .date-photo {
+        height: 130px;
+    }
+
+    .title-main {
+        font-size: 2rem;
+    }
+
+    .hero-message {
+        font-size: 0.8rem;
+    }
+
+    .letter-envelope {
+        padding: 1rem;
+    }
+}
+
+/* Safe areas */
+@supports (padding: env(safe-area-inset-bottom)) {
+    .slide-counter {
+        bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+
+    .nav-dots {
+        right: calc(10px + env(safe-area-inset-right));
+    }
+}
+
+/* ============================================
+   SELECTION & SCROLLBAR
+   ============================================ */
+::selection {
+    background: rgba(233, 30, 99, 0.3);
+    color: #fff;
+}
+
+.slide::-webkit-scrollbar {
+    display: none;
+}
+
+.slide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}

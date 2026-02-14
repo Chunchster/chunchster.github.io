@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Para mi Peluchitu 💖</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💖</text></svg>">
+</head>
+<body>
+    <!-- Petal / particle canvas -->
+    <canvas id="petals-canvas"></canvas>
+
+    <!-- Navigation Dots -->
+    <nav class="nav-dots" id="nav-dots">
+        <button class="nav-dot active" data-slide="0" aria-label="Inicio"></button>
+        <button class="nav-dot" data-slide="1" aria-label="Nuestra historia"></button>
+        <button class="nav-dot" data-slide="2" aria-label="Enero"></button>
+        <button class="nav-dot" data-slide="3" aria-label="Octubre"></button>
+        <button class="nav-dot" data-slide="4" aria-label="Carta de amor"></button>
+        <button class="nav-dot" data-slide="5" aria-label="Sorpresa"></button>
+    </nav>
+
+    <!-- Slides Container -->
+    <div class="slides-container" id="slides-container">
+
+        <!-- SLIDE 0: Hero -->
+        <section class="slide slide-hero active" data-index="0">
+            <div class="slide-content">
+                <div class="sparkle-container">
+                    <span class="sparkle">✨</span>
+                    <span class="sparkle">✨</span>
+                    <span class="sparkle">✨</span>
+                </div>
+                <h1 class="title-main">Para mi Peluchitu</h1>
+                <h2 class="title-sub">Fiorella</h2>
+                <div class="heart-divider">
+                    <span>♥</span><span>♥</span><span>♥</span>
+                </div>
+                <p class="hero-message">
+                    Cada segundo a tu lado es un regalo, cada día contigo es una aventura, 
+                    y cada momento juntos es un tesoro que guardo en mi corazón.
+                </p>
+                <p class="valentines-date">14 de Febrero, 2026</p>
+                <div class="swipe-hint" id="swipe-hint">
+                    <span class="swipe-arrow">›</span>
+                    <span class="swipe-text">Desliza</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 1: Our Story Timeline -->
+        <section class="slide slide-timeline" data-index="1">
+            <div class="slide-content">
+                <h2 class="section-title">Nuestra Historia</h2>
+                <div class="timeline">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-item" data-anim="left">
+                        <div class="timeline-dot">💫</div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">2 Ene 2025</span>
+                            <p>Nos conocimos y todo cambió para siempre</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-anim="right">
+                        <div class="timeline-dot">💕</div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">Los meses juntos</span>
+                            <p>Cada día enamorándonos más</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-anim="left">
+                        <div class="timeline-dot">💍</div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">11 Oct 2025</span>
+                            <p>Te pedí que fueras mi pareja formalmente</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-anim="right">
+                        <div class="timeline-dot">❤️</div>
+                        <div class="timeline-card">
+                            <span class="timeline-date">14 Feb 2026</span>
+                            <p>Nuestro primer San Valentín viajando juntos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2: Enero -->
+        <section class="slide slide-enero" data-index="2">
+            <div class="slide-content">
+                <div class="date-badge">
+                    <span class="badge-icon">💕</span>
+                    <span class="badge-text">Donde todo comenzó</span>
+                </div>
+                <h2 class="date-title">2 de Enero, 2025</h2>
+                <p class="date-time-label">5:00 PM</p>
+                <div class="photo-frame">
+                    <img src="enero.JPEG" alt="Nuestro primer momento juntos" class="date-photo" loading="lazy">
+                    <div class="photo-caption">Nuestro comienzo 💖</div>
+                </div>
+                <p class="date-description">
+                    El día en que nuestros caminos se cruzaron y mi mundo cambió para siempre.
+                </p>
+                <div class="countdown-label">Tiempo juntos:</div>
+                <div class="countdown" id="countdown-enero">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="enero-dias">0</span>
+                        <span class="countdown-text">Días</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="enero-horas">0</span>
+                        <span class="countdown-text">Hrs</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="enero-minutos">0</span>
+                        <span class="countdown-text">Min</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="enero-segundos">0</span>
+                        <span class="countdown-text">Seg</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3: Octubre -->
+        <section class="slide slide-octubre" data-index="3">
+            <div class="slide-content">
+                <div class="date-badge">
+                    <span class="badge-icon">💍</span>
+                    <span class="badge-text">Oficialmente juntos</span>
+                </div>
+                <h2 class="date-title">11 de Octubre, 2025</h2>
+                <p class="date-time-label">7:00 PM</p>
+                <div class="photo-frame">
+                    <img src="octubre.JPEG" alt="El día que nos hicimos pareja" class="date-photo" loading="lazy">
+                    <div class="photo-caption">Nuestro día especial 💍</div>
+                </div>
+                <p class="date-description">
+                    El día más especial, cuando te pedí que fueras mi pareja. 
+                    El "sí" más bonito que he escuchado. 💖
+                </p>
+                <div class="countdown-label">Tiempo como pareja:</div>
+                <div class="countdown" id="countdown-octubre">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="octubre-dias">0</span>
+                        <span class="countdown-text">Días</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="octubre-horas">0</span>
+                        <span class="countdown-text">Hrs</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="octubre-minutos">0</span>
+                        <span class="countdown-text">Min</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="octubre-segundos">0</span>
+                        <span class="countdown-text">Seg</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4: Love Letter -->
+        <section class="slide slide-letter" data-index="4">
+            <div class="slide-content">
+                <div class="letter-envelope">
+                    <div class="letter-icon">💌</div>
+                    <h2 class="letter-title">Mi Peluchitu</h2>
+                    <div class="letter-body" id="letter-body">
+                        <p class="letter-line" data-delay="0">Eres lo más bonito que me ha pasado.</p>
+                        <p class="letter-line" data-delay="1">Gracias por cada sonrisa, cada abrazo</p>
+                        <p class="letter-line" data-delay="2">y cada momento a tu lado.</p>
+                        <p class="letter-line" data-delay="3">Hoy, en San Valentín,</p>
+                        <p class="letter-line" data-delay="4">quiero que sepas que mi amor por ti</p>
+                        <p class="letter-line" data-delay="5">crece cada día más. 💖</p>
+                        <p class="letter-line" data-delay="6">Eres mi persona favorita,</p>
+                        <p class="letter-line" data-delay="7">mi compañera, mi todo.</p>
+                    </div>
+                    <div class="letter-signature">
+                        <p class="signature-text">Con amor,</p>
+                        <p class="signature-name">Peluchitu</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5: Surprise / Final -->
+        <section class="slide slide-surprise" data-index="5">
+            <div class="slide-content">
+                <div class="surprise-heart" id="surprise-heart">
+                    <span class="big-heart">💖</span>
+                    <p class="tap-text">Toca el corazón</p>
+                </div>
+                <div class="surprise-message" id="surprise-message">
+                    <h2 class="surprise-title">Te amo, Fiorella</h2>
+                    <p class="surprise-text">
+                        Eres lo mejor de mi vida. Feliz San Valentín, mi peluchitu hermosa. 
+                        Que este sea el primero de muchos juntos. 🥰
+                    </p>
+                    <div class="final-footer">
+                        <div class="footer-hearts">💕 💖 💕</div>
+                        <p>Hecho con todo mi amor para ti</p>
+                        <p class="footer-year">San Valentín 2026</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Slide counter -->
+    <div class="slide-counter" id="slide-counter">
+        <span id="current-slide">1</span> / <span id="total-slides">6</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
